@@ -1,6 +1,6 @@
 # AgroPulse
 
-**The operating system for modern agriculture — a marketing site and interactive product demo for a precision agriculture platform.**
+**The operating system for modern agriculture ... a marketing site and interactive product demo for a precision agriculture platform.**
 
 AgroPulse is a portfolio project: an enterprise SaaS landing page built for a fictional company that sells soil analytics, yield forecasting, and drone mapping software to commercial farms. It focuses on translating live, data-heavy product concepts into interactive frontend UI — animated telemetry readouts, a tabbed feature tour, a slider-driven ROI calculator, and a billing-toggle pricing matrix.
 
