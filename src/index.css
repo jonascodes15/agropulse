@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+@import "@fontsource/space-grotesk/500.css";
+@import "@fontsource/space-grotesk/600.css";
+@import "@fontsource/space-grotesk/700.css";
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/jetbrains-mono/400.css";
+@import "@fontsource/jetbrains-mono/500.css";
+
+@theme {
+  /* Color system: deep field-soil base + chlorophyll / amber / signal-teal accents.
+     Chosen to read as instrumentation, not marketing-SaaS. */
+  --color-soil-950: #12160f;
+  --color-soil-900: #191f14;
+  --color-soil-800: #212819;
+  --color-panel: #1c2317;
+  --color-panel-raised: #232b1c;
+  --color-line: #34402a;
+  --color-parchment: #ede8d9;
+  --color-parchment-dim: #a9a891;
+  --color-parchment-faint: #6f7061;
+  --color-chlorophyll: #6fa35e;
+  --color-chlorophyll-bright: #93cf72;
+  --color-amber: #e8a33d;
+  --color-amber-dim: #b9822f;
+  --color-signal: #3e9e96;
+  --color-signal-bright: #62c2b9;
+  --color-danger: #c4634a;
+
+  --font-display: "Space Grotesk", "Inter", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --animate-pulse-slow: pulse-slow 2.4s ease-in-out infinite;
+  --animate-scan: scan 6s linear infinite;
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+@keyframes scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-soil-950);
+  color: var(--color-parchment);
+  font-family: var(--font-body);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Signature: monospace "readout" styling used for every live/data number on the page */
+.readout {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* Topographic contour-line texture used as ambient background */
+.contour-field {
+  background-image:
+    radial-gradient(circle at 20% 30%, color-mix(in oklab, var(--color-chlorophyll) 14%, transparent) 0%, transparent 45%),
+    radial-gradient(circle at 80% 70%, color-mix(in oklab, var(--color-signal) 12%, transparent) 0%, transparent 50%);
+}
+
+.panel-border {
+  border: 1px solid var(--color-line);
+}
+
+.focus-ring {
+  outline: none;
+}
+.focus-ring:focus-visible {
+  outline: 2px solid var(--color-chlorophyll-bright);
+  outline-offset: 2px;
+}
