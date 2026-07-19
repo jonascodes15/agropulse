@@ -8,7 +8,7 @@ This repo currently covers the **frontend**. A Kafka + Postgres ETL pipeline tha
 
 ## Live demo
 
-_Add your deployed URL here once hosted (e.g. Vercel/Netlify)._
+https://agropulsehq.netlify.app
 
 ## Features
 
