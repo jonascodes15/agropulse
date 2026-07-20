@@ -13,7 +13,7 @@ interface Props {
 }
 
 export default function LiveMetricReadout({ metric, delayMs = 0 }: Props) {
-  const value = useAnimatedNumber(metric.from, metric.to, 2200, delayMs);
+  const value = useAnimatedNumber(metric.from, metric.to, 2200, { delayMs });
 
   return (
     <div className="flex items-center justify-between gap-3 border-b border-line/60 py-3 last:border-b-0">
