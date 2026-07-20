@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { pricingTiers } from "../data/mockData";
+import ScrollReveal, { ScrollStagger, staggerItem } from "./ScrollReveal";
 
 export default function PricingMatrix() {
   const [annual, setAnnual] = useState(true);
@@ -7,7 +9,7 @@ export default function PricingMatrix() {
   return (
     <section id="pricing" className="py-24">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
+        <ScrollReveal className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
           <div>
             <p className="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-signal-bright">
               Pricing
@@ -26,17 +28,20 @@ export default function PricingMatrix() {
               <span className="ml-1.5 text-signal-bright">−20%</span>
             </ToggleButton>
           </div>
-        </div>
+        </ScrollReveal>
 
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
+        <ScrollStagger className="mt-12 grid gap-6 md:grid-cols-3" staggerMs={0.1}>
           {pricingTiers.map((tier) => {
             const isCustom = tier.monthly === 0;
             const price = annual ? tier.annualMonthly : tier.monthly;
 
             return (
-              <div
+              <motion.div
                 key={tier.id}
-                className={`relative rounded-xl p-7 transition-colors ${
+                variants={staggerItem}
+                whileHover={{ y: -6 }}
+                transition={{ type: "spring", stiffness: 300, damping: 22 }}
+                className={`relative rounded-xl p-7 ${
                   tier.highlighted
                     ? "border-2 border-chlorophyll-bright bg-panel-raised"
                     : "panel-border bg-panel/90"
@@ -83,10 +88,10 @@ export default function PricingMatrix() {
                 >
                   {isCustom ? "Talk to sales" : "Start free trial"}
                 </button>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </ScrollStagger>
       </div>
     </section>
   );
