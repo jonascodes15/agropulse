@@ -34,5 +34,5 @@
       "label": "Airflow"
     }
   },
-  "postCreateCommand": "cd frontend && npm install"
+  "postCreateCommand": "npm install"
 }
