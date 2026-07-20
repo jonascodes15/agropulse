@@ -3,18 +3,26 @@ import { useEffect, useRef, useState } from "react";
 /**
  * Animates a numeric value from `from` to `to` over `durationMs`,
  * using an ease-out curve. Used to fake "live telemetry" without a backend.
+ *
+ * Pass `start: false` to hold at `from` until the caller flips it to true
+ * (e.g. once an element scrolls into view) — see useCountOnView.
  */
 export function useAnimatedNumber(
   from: number,
   to: number,
   durationMs = 1800,
-  delayMs = 0
+  options?: { delayMs?: number; start?: boolean }
 ): number {
+  const { delayMs = 0, start = true } = options ?? {};
   const [value, setValue] = useState(from);
   const rafRef = useRef<number | null>(null);
+  const hasRun = useRef(false);
 
   useEffect(() => {
-    let start: number | null = null;
+    if (!start || hasRun.current) return;
+    hasRun.current = true;
+
+    let startTime: number | null = null;
     const prefersReduced =
       typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -26,8 +34,8 @@ export function useAnimatedNumber(
 
     const timeout = window.setTimeout(() => {
       const step = (timestamp: number) => {
-        if (start === null) start = timestamp;
-        const elapsed = timestamp - start;
+        if (startTime === null) startTime = timestamp;
+        const elapsed = timestamp - startTime;
         const t = Math.min(elapsed / durationMs, 1);
         const eased = 1 - Math.pow(1 - t, 3); // ease-out-cubic
         setValue(from + (to - from) * eased);
@@ -43,7 +51,7 @@ export function useAnimatedNumber(
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [from, to, durationMs, delayMs]);
+  }, [start, from, to, durationMs, delayMs]);
 
   return value;
 }
