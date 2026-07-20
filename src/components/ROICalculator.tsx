@@ -1,5 +1,7 @@
 import { useMemo, useState } from "react";
 import { cropProfiles } from "../data/mockData";
+import ScrollReveal, { ScrollStagger, staggerItem } from "./ScrollReveal";
+import { motion } from "framer-motion";
 
 function formatNumber(n: number): string {
   return Math.round(n).toLocaleString("en-US");
@@ -24,19 +26,21 @@ export default function ROICalculator() {
   return (
     <section id="roi" className="border-b border-line/70 py-24">
       <div className="mx-auto max-w-7xl px-6">
-        <p className="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-signal-bright">
-          Estimate your impact
-        </p>
-        <h2 className="font-display text-3xl font-semibold tracking-tight text-parchment sm:text-4xl">
-          What would AgroPulse save on your farm?
-        </h2>
-        <p className="mt-4 max-w-xl text-parchment-dim">
-          A rough estimate based on farm size and crop type — the kind of
-          back-of-envelope number a farm manager could sanity-check before a
-          real assessment.
-        </p>
+        <ScrollReveal>
+          <p className="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-signal-bright">
+            Estimate your impact
+          </p>
+          <h2 className="font-display text-3xl font-semibold tracking-tight text-parchment sm:text-4xl">
+            What would AgroPulse save on your farm?
+          </h2>
+          <p className="mt-4 max-w-xl text-parchment-dim">
+            A rough estimate based on farm size and crop type — the kind of
+            back-of-envelope number a farm manager could sanity-check before a
+            real assessment.
+          </p>
+        </ScrollReveal>
 
-        <div className="mt-12 grid gap-8 lg:grid-cols-5">
+        <ScrollReveal delay={0.1} className="mt-12 grid gap-8 lg:grid-cols-5">
           {/* Controls */}
           <div className="panel-border rounded-xl bg-panel/90 p-6 lg:col-span-2">
             <label htmlFor="hectares" className="flex items-center justify-between text-sm text-parchment-dim">
@@ -81,27 +85,33 @@ export default function ROICalculator() {
           </div>
 
           {/* Results */}
-          <div className="grid gap-4 sm:grid-cols-3 lg:col-span-3 lg:grid-cols-1 lg:grid-rows-3">
-            <ResultCard
-              label="Estimated water saved"
-              value={`${formatNumber(results.waterSaved / 1000)}`}
-              unit="thousand L / year"
-              accent="signal"
-            />
-            <ResultCard
-              label="Estimated cost savings"
-              value={`$${formatNumber(results.dollarsSaved)}`}
-              unit="per year"
-              accent="amber"
-            />
-            <ResultCard
-              label="Projected yield uplift"
-              value={`+${formatNumber(results.yieldUpliftTons)}`}
-              unit="tons / season"
-              accent="chlorophyll"
-            />
-          </div>
-        </div>
+          <ScrollStagger className="grid gap-4 sm:grid-cols-3 lg:col-span-3 lg:grid-cols-1 lg:grid-rows-3">
+            <motion.div variants={staggerItem}>
+              <ResultCard
+                label="Estimated water saved"
+                value={`${formatNumber(results.waterSaved / 1000)}`}
+                unit="thousand L / year"
+                accent="signal"
+              />
+            </motion.div>
+            <motion.div variants={staggerItem}>
+              <ResultCard
+                label="Estimated cost savings"
+                value={`$${formatNumber(results.dollarsSaved)}`}
+                unit="per year"
+                accent="amber"
+              />
+            </motion.div>
+            <motion.div variants={staggerItem}>
+              <ResultCard
+                label="Projected yield uplift"
+                value={`+${formatNumber(results.yieldUpliftTons)}`}
+                unit="tons / season"
+                accent="chlorophyll"
+              />
+            </motion.div>
+          </ScrollStagger>
+        </ScrollReveal>
 
         <p className="mt-6 text-xs text-parchment-faint">
           Figures are illustrative estimates for demonstration purposes, not a
@@ -132,7 +142,15 @@ function ResultCard({
   return (
     <div className="panel-border flex flex-col justify-center rounded-xl bg-panel/90 px-6 py-5">
       <p className="text-sm text-parchment-dim">{label}</p>
-      <p className={`readout mt-1 text-3xl font-semibold ${accentClass}`}>{value}</p>
+      <motion.p
+        key={value}
+        initial={{ opacity: 0.4, y: 4 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.25, ease: "easeOut" }}
+        className={`readout mt-1 text-3xl font-semibold ${accentClass}`}
+      >
+        {value}
+      </motion.p>
       <p className="text-xs text-parchment-faint">{unit}</p>
     </div>
   );
