@@ -1,0 +1,18 @@
+{
+  "name": "agropulse-dev",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    "ghcr.io/devcontainers/features/node:1": { "version": "20" },
+    "ghcr.io/devcontainers/features/python:1": { "version": "3.11" }
+  },
+  "forwardPorts": [5173, 8000, 5432, 9092, 8080],
+  "portsAttributes": {
+    "5173": { "label": "Frontend (Vite)" },
+    "8000": { "label": "API" },
+    "5432": { "label": "Postgres" },
+    "9092": { "label": "Kafka" },
+    "8080": { "label": "Airflow" }
+  },
+  "postCreateCommand": "cd frontend && npm install"
+}
