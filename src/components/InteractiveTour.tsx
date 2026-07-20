@@ -4,6 +4,7 @@ import { tourTabs } from "../data/mockData";
 import SoilGrid from "./SoilGrid";
 import YieldChart from "./YieldChart";
 import DroneMapPreview from "./DroneMapPreview";
+import ScrollReveal from "./ScrollReveal";
 
 const visuals: Record<string, React.ReactNode> = {
   soil: <SoilGrid />,
@@ -18,41 +19,45 @@ export default function InteractiveTour() {
   return (
     <section id="tour" className="border-b border-line/70 bg-soil-900/40 py-24">
       <div className="mx-auto max-w-7xl px-6">
-        <p className="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-signal-bright">
-          The platform
-        </p>
-        <h2 className="font-display text-3xl font-semibold tracking-tight text-parchment sm:text-4xl">
-          One tool, three ways to see the farm.
-        </h2>
+        <ScrollReveal>
+          <p className="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-signal-bright">
+            The platform
+          </p>
+          <h2 className="font-display text-3xl font-semibold tracking-tight text-parchment sm:text-4xl">
+            One tool, three ways to see the farm.
+          </h2>
+        </ScrollReveal>
 
-        <div
-          role="tablist"
-          aria-label="Platform features"
-          className="mt-10 flex flex-wrap gap-2 border-b border-line/70"
-        >
-          {tourTabs.map((tab) => (
-            <button
-              key={tab.id}
-              role="tab"
-              aria-selected={activeId === tab.id}
-              onClick={() => setActiveId(tab.id)}
-              className={`focus-ring relative rounded-t-md px-4 py-3 text-sm font-medium transition-colors ${
-                activeId === tab.id
-                  ? "text-parchment"
-                  : "text-parchment-faint hover:text-parchment-dim"
-              }`}
-            >
-              {tab.label}
-              {activeId === tab.id && (
-                <motion.span
-                  layoutId="tour-underline"
-                  className="absolute inset-x-0 -bottom-px h-0.5 bg-chlorophyll-bright"
-                  transition={{ type: "spring", stiffness: 400, damping: 32 }}
-                />
-              )}
-            </button>
-          ))}
-        </div>
+        <ScrollReveal delay={0.1}>
+          <div
+            role="tablist"
+            aria-label="Platform features"
+            className="mt-10 flex flex-wrap gap-2 border-b border-line/70"
+          >
+            {tourTabs.map((tab) => (
+              <button
+                key={tab.id}
+                role="tab"
+                aria-selected={activeId === tab.id}
+                onClick={() => setActiveId(tab.id)}
+                className={`focus-ring relative rounded-t-md px-4 py-3 text-sm font-medium transition-colors ${
+                  activeId === tab.id
+                    ? "text-parchment"
+                    : "text-parchment-faint hover:text-parchment-dim"
+                }`}
+              >
+                {tab.label}
+                {activeId === tab.id && (
+                  <motion.span
+                    layoutId="tour-underline"
+                    className="absolute inset-x-0 -bottom-px h-0.5 bg-chlorophyll-bright"
+                    transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                  />
+                )}
+              </button>
+            ))}
+          </div>
+        </ScrollReveal>
 
         <div className="mt-10 grid gap-10 md:grid-cols-2 md:items-center">
           <AnimatePresence mode="wait">
@@ -78,6 +83,7 @@ export default function InteractiveTour() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.97 }}
               transition={{ duration: 0.35, ease: "easeOut" }}
+              whileHover={{ scale: 1.01 }}
               className="panel-border rounded-xl bg-panel/90 p-5"
             >
               {visuals[active.id]}
