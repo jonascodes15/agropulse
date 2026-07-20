@@ -1,6 +1,23 @@
 // Hardcoded mock states — stand-ins for what would normally stream from
 // a telemetry/ingestion pipeline (sensor gateways -> Kafka -> API).
 
+export interface TrustStat {
+  id: string;
+  label: string;
+  to: number;
+  decimals: number;
+  prefix?: string;
+  suffix?: string;
+}
+
+// Animated counters for the trust strip beneath the hero.
+export const trustStats: TrustStat[] = [
+  { id: "hectares", label: "Hectares monitored", to: 84200, decimals: 0, suffix: "+" },
+  { id: "farms", label: "Farms onboarded", to: 1260, decimals: 0, suffix: "+" },
+  { id: "water", label: "Liters of water saved", to: 2.4, decimals: 1, suffix: "B" },
+  { id: "accuracy", label: "Forecast accuracy", to: 94.6, decimals: 1, suffix: "%" },
+];
+
 export interface FieldMetric {
   id: string;
   label: string;
