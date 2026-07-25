@@ -14,9 +14,34 @@ https://agropulse-hq.netlify.app
 
 ## Architecture
 
-![AgroPulse Arhcitecture](./src/assets/data-flow_bioflow_iot.jpg)
+```mermaid
+flowchart TB
+    A[Sensor Simulator] -->|JSON readings| B[Kafka Topic<br/>field.readings]
+    B -->|Subscribe / Stream| C[ETL Consumer<br/>Clean & transform]
+    C -->|Write / Persist| D[(PostgreSQL<br/>TimescaleDB)]
+    G[Airflow] -->|Nightly batch recompute| D
+    E[React + Tailwind UI] -->|HTTP GET /readings| F[FastAPI Backend]
+    F -->|SQL Query| D
 
-Each stage is its own container; `docker-compose.yml` at the repo root wires them together.
+    classDef ingestion fill:#1D9E75,stroke:#0F6E56,color:#fff
+    classDef broker fill:#BA7517,stroke:#854F0B,color:#fff
+    classDef processing fill:#378ADD,stroke:#185FA5,color:#fff
+    classDef db fill:#378ADD,stroke:#185FA5,color:#fff
+    classDef batch fill:#888780,stroke:#5F5E5A,color:#fff
+    classDef frontend fill:#7F77DD,stroke:#534AB7,color:#fff
+    classDef api fill:#D4537E,stroke:#993556,color:#fff
+
+    class A ingestion
+    class B broker
+    class C processing
+    class D db
+    class G batch
+    class E frontend
+    class F api
+```
+
+Each stage runs as its own container; `docker-compose.yml` at the repo root wires them together.
+
 
 ## Tech stack
 
