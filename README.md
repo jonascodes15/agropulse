@@ -139,6 +139,4 @@ When you're done: `docker compose down` to stop everything, then stop the codesp
 
 This is a working demonstration of the ingestion → ETL → storage → batch → serving pattern a real precision-ag platform would use, built on simulated sensor data. It is not a production SaaS — there's no real hardware integration, no multi-tenancy, no billing, no trained ML model behind the forecast, and no security hardening beyond local dev defaults (see `main.py`'s CORS comment). That's an intentional scope choice for a portfolio project, not an oversight.
 
-## License
 
-MIT
