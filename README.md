@@ -10,23 +10,11 @@ A commercial farm operator wants one live picture of a field instead of separate
 
 ## Live demo
 
-_Add your deployed frontend URL here once hosted._
+https://agropulse-hq.netlify.app
 
 ## Architecture
 
-```
-Ingestion              Processing                Serving
-──────────             ──────────                ───────
-Sensor simulator  →    ETL consumer         →    API layer   →   React frontend
-(producer/)             (consumer/)               (api/)          (src/, this repo's root)
-      ↓                      ↓
-Kafka topic         →   Postgres/TimescaleDB
-(field.readings)         (db/init.sql)
-                              ↑
-                         Airflow (airflow/)
-                         nightly batch recompute
-                         of the yield forecast
-```
+![AgroPulse Arhcitecture](./src/assets/data-flow_bioflow_iot.jpg)
 
 Each stage is its own container; `docker-compose.yml` at the repo root wires them together.
 
