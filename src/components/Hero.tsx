@@ -37,10 +37,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          <p className="mb-4 flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-signal-bright">
-            <span className="h-px w-6 bg-signal-bright" aria-hidden="true" />
-            Precision agriculture platform
-          </p>
+
           <h1 className="font-display text-4xl font-semibold leading-[1.05] tracking-tight text-parchment sm:text-5xl lg:text-6xl">
             The operating system for modern agriculture.
           </h1>
