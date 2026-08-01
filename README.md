@@ -10,7 +10,7 @@ A commercial farm operator wants one live picture of a field instead of separate
 
 ## Live demo
 
-https://agropulse-hq.netlify.app
+https://agropulsehq.netlify.app
 
 ## Architecture
 
