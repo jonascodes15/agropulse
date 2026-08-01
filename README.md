@@ -1,13 +1,12 @@
 # AgroPulse
 
-**The operating system for modern agriculture — an end-to-end demo of a precision agriculture platform, from simulated field sensors to a live product UI.**
+**The operating system for modern agriculture: an end-to-end demo of a precision agriculture platform, from simulated field sensors to a live product UI.**
 
-AgroPulse started as a marketing landing page for a fictional company selling soil analytics, yield forecasting, and drone mapping software to commercial farms. It has since grown into a full pipeline demo: simulated sensors stream readings through Kafka, an ETL consumer cleans and stores them in TimescaleDB, a nightly Airflow job recomputes yield forecasts, and a FastAPI layer serves it all — with the original React frontend ready to consume it as live data instead of hardcoded mock values.
+AgroPulse is a marketing landing page for a fictional precision agriculture company that has grown into a full data pipeline demo. Simulated sensors stream readings through Kafka, an ETL consumer cleans and stores them in TimescaleDB, a nightly Airflow job recomputes yield forecasts, and a FastAPI layer serves it all.
 
 ## Use case
 
-A commercial farm operator wants one live picture of a field instead of separate spreadsheets, gut instinct, and a fence-line walk. AgroPulse's premise: sensor gateways report soil moisture, canopy temperature, nitrogen levels, and irrigation draw in near real time; that data feeds both an operational dashboard (react to what's happening today) and a forecasting model (project the season's yield from what's accumulated so far). The pipeline in this repo is a working demonstration of that data path — real-time ingestion, ETL, storage, batch recomputation, and an API — built on simulated data rather than real hardware.
-
+A commercial farm operator wants one live picture of a field instead of separate spreadsheets, gut instinct, and a fence line walk. AgroPulse's premise is simple: sensor gateways report soil moisture, canopy temperature, nitrogen levels, and irrigation draw in near real time. That data feeds both an operational dashboard, for reacting to what's happening today, and a forecasting model, for projecting the season's yield from what's accumulated so far. The pipeline in this repo is a working demonstration of that full data path: real-time ingestion, ETL, storage, batch recomputation, and an API, all built on simulated data rather than real hardware.
 ## Live demo
 
 https://agropulsehq.netlify.app
